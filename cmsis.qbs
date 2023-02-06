@@ -28,51 +28,55 @@
 import qbs.FileInfo
 
 Product {
-    name: "cmsis"
-    type: "lib"
+    name: 'cmsis'
+    type: 'lib'
 
-    Depends { name: "stm32" }
+    Depends { name: 'stm32' }
 
     Properties {
-        condition: stm32.targetSeries == "STM32F1"
+        condition: stm32.targetSeries == 'STM32F1'
         stm32.includePaths: [
-            "ARM/inc",
-            "STM32F1xx/inc"
+            'ARM/inc',
+            'STM32F1xx/inc'
         ]
     }
     Properties {
-        condition: stm32.targetSeries == "STM32F4"
+        condition: stm32.targetSeries == 'STM32F4'
         stm32.includePaths: [
-            "ARM/inc",
-            "STM32F4xx/inc"
+            'ARM/inc',
+            'STM32F4xx/inc'
         ]
     }
 
     Group {
-        condition: stm32.targetSeries == "STM32F1"
+        condition: stm32.targetSeries == 'STM32F1'
         files: [
-            "ARM/inc/core_cm3.h",
-            "STM32F1xx/**/*.h",
-            "STM32F1xx/**/*.c"
+            'ARM/inc/core_cm3.h',
+            'STM32F1xx/**/*.h',
+            'STM32F1xx/**/*.c'
         ]
     }
 
     Group {
-        condition: stm32.targetSeries == "STM32F4"
+        condition: stm32.targetSeries == 'STM32F4'
         files: [
-            "ARM/inc/core_cm4.h",
-            "STM32F4xx/**/*.h",
-            "STM32F4xx/**/*.c"
+            'ARM/inc/core_cm4.h',
+            'STM32F4xx/**/*.h',
+            'STM32F4xx/**/*.c'
         ]
     }
 
     files: [
-        "ARM/inc/cmsis*.h",
+        'ARM/inc/cmsis*.h'
     ]
 
     Export {
-        Depends { name: "stm32" }
-        stm32.includePaths: exportingProduct.stm32.includePaths
+        Depends { name: 'stm32' }
+        
+        stm32.includePaths: [
+            FileInfo.joinPaths(exportingProduct.sourceDirectory, 'ARM/inc'),
+            FileInfo.joinPaths(exportingProduct.sourceDirectory, stm32.targetSeries + 'xx/inc')
+        ]
         stm32.libraryPaths: [ exportingProduct.destinationDirectory ]
     }
 }
