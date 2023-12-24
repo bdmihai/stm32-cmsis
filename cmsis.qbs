@@ -63,7 +63,7 @@ Product {
         
         stm32.includePaths: [
             FileInfo.joinPaths(exportingProduct.sourceDirectory, 'core'),
-            FileInfo.joinPaths(exportingProduct.sourceDirectory, 'device/' + stm32.targetSeries)
+            FileInfo.joinPaths(exportingProduct.sourceDirectory, 'device', stm32.targetSeries)
         ]
         stm32.libraryPaths: [ exportingProduct.destinationDirectory ]
     }
