@@ -33,49 +33,37 @@ Product {
 
     Depends { name: 'stm32' }
 
-    Properties {
-        condition: stm32.targetSeries == 'STM32F1'
-        stm32.includePaths: [
-            'ARM/inc',
-            'STM32F1xx/inc'
-        ]
-    }
-    Properties {
-        condition: stm32.targetSeries == 'STM32F4'
-        stm32.includePaths: [
-            'ARM/inc',
-            'STM32F4xx/inc'
-        ]
-    }
+    stm32.includePaths: [
+        'core',
+        'device/' + stm32.targetSeries + 'xx'
+    ]
 
     Group {
         condition: stm32.targetSeries == 'STM32F1'
         files: [
-            'ARM/inc/core_cm3.h',
-            'STM32F1xx/**/*.h',
-            'STM32F1xx/**/*.c'
+            'core/core_cm3.h'
         ]
     }
 
     Group {
         condition: stm32.targetSeries == 'STM32F4'
         files: [
-            'ARM/inc/core_cm4.h',
-            'STM32F4xx/**/*.h',
-            'STM32F4xx/**/*.c'
+            'core/core_cm4.h'
         ]
     }
 
     files: [
-        'ARM/inc/cmsis*.h'
+        'core/cmsis*.h',
+        'device/' + stm32.targetSeries + 'xx/*.h',
+        'device/' + stm32.targetSeries + 'xx/*.c'
     ]
 
     Export {
         Depends { name: 'stm32' }
         
         stm32.includePaths: [
-            FileInfo.joinPaths(exportingProduct.sourceDirectory, 'ARM/inc'),
-            FileInfo.joinPaths(exportingProduct.sourceDirectory, stm32.targetSeries + 'xx/inc')
+            FileInfo.joinPaths(exportingProduct.sourceDirectory, 'core'),
+            FileInfo.joinPaths(exportingProduct.sourceDirectory, 'device/' + stm32.targetSeries + 'xx')
         ]
         stm32.libraryPaths: [ exportingProduct.destinationDirectory ]
     }
