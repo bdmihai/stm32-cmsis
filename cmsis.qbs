@@ -35,7 +35,7 @@ Product {
 
     stm32.includePaths: [
         'core',
-        'device/' + stm32.targetSeries + 'xx'
+        'device/' + stm32.targetSeries
     ]
 
     Group {
@@ -54,8 +54,8 @@ Product {
 
     files: [
         'core/cmsis*.h',
-        'device/' + stm32.targetSeries + 'xx/*.h',
-        'device/' + stm32.targetSeries + 'xx/*.c'
+        'device/' + stm32.targetSeries + '/*.h',
+        'device/' + stm32.targetSeries + '/*.c'
     ]
 
     Export {
@@ -63,7 +63,7 @@ Product {
         
         stm32.includePaths: [
             FileInfo.joinPaths(exportingProduct.sourceDirectory, 'core'),
-            FileInfo.joinPaths(exportingProduct.sourceDirectory, 'device/' + stm32.targetSeries + 'xx')
+            FileInfo.joinPaths(exportingProduct.sourceDirectory, 'device/' + stm32.targetSeries)
         ]
         stm32.libraryPaths: [ exportingProduct.destinationDirectory ]
     }
