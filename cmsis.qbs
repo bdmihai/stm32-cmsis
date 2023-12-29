@@ -21,7 +21,7 @@
  | THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                 |
  |____________________________________________________________________________|
  |                                                                            |
- |  Author: Mihai Baneu                           Last modified: 02.Jan.2021  |
+ |  Author: Mihai Baneu                           Last modified: 28.Dec.2023  |
  |                                                                            |
  |___________________________________________________________________________*/
 
@@ -49,6 +49,13 @@ Product {
         condition: stm32.targetSeries == 'STM32F4'
         files: [
             'core/core_cm4.h'
+        ]
+    }
+
+    Group {
+        condition: stm32.targetSeries == 'STM32H7'
+        files: [
+            'core/core_cm7.h'
         ]
     }
 
