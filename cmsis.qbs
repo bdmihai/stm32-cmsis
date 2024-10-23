@@ -59,6 +59,13 @@ Product {
         ]
     }
 
+     Group {
+        condition: stm32.targetSeries == 'STM32G0'
+        files: [
+            'core/core_cm0plus.h'
+        ]
+    }
+
     files: [
         'core/cmsis*.h',
         'device/' + stm32.targetSeries + '/*.h',
